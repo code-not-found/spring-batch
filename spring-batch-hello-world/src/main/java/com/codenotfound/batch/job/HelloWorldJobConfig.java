@@ -2,7 +2,6 @@ package com.codenotfound.batch.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -20,7 +19,7 @@ import com.codenotfound.model.Person;
 
 @Configuration
 @EnableBatchProcessing
-public class HelloWorldJobConfig extends DefaultBatchConfigurer {
+public class HelloWorldJobConfig {
 
   @Autowired
   public JobBuilderFactory jobBuilders;
@@ -30,12 +29,12 @@ public class HelloWorldJobConfig extends DefaultBatchConfigurer {
 
   @Bean
   public Job helloWorlJob() {
-    return this.jobBuilders.get("helloWorldJob").start(helloWorldStep()).build();
+    return jobBuilders.get("helloWorldJob").start(helloWorldStep()).build();
   }
 
   @Bean
   public Step helloWorldStep() {
-    return this.stepBuilders.get("helloWorldStep").<Person, String>chunk(10).reader(reader())
+    return stepBuilders.get("helloWorldStep").<Person, String>chunk(10).reader(reader())
         .processor(processor()).writer(writer()).build();
   }
 
