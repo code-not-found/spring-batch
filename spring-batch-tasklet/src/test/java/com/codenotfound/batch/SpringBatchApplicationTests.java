@@ -1,6 +1,7 @@
 package com.codenotfound.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -27,26 +28,31 @@ import com.codenotfound.batch.job.ConvertNamesJobConfig;
 @SpringBootTest(classes = {SpringBatchApplicationTests.BatchTestConfig.class})
 public class SpringBatchApplicationTests {
 
+  private static Path csvFilesPath, testInputPath;
+
   @Autowired
   private JobLauncherTestUtils jobLauncherTestUtils;
 
   @BeforeClass
   public static void copyFiles() throws URISyntaxException, IOException {
-    Path source = Paths.get(new ClassPathResource("csv").getURI());
-    Path destination = Paths.get("target/test-input");
+    csvFilesPath = Paths.get(new ClassPathResource("csv").getURI());
+    testInputPath = Paths.get("target/test-input");
     try {
-      Files.createDirectory(destination);
+      Files.createDirectory(testInputPath);
     } catch (Exception e) {
       // if directory exists do nothing
     }
 
-    FileSystemUtils.copyRecursively(source, destination);
+    FileSystemUtils.copyRecursively(csvFilesPath, testInputPath);
   }
 
   @Test
   public void testHelloWorldJob() throws Exception {
     JobExecution jobExecution = jobLauncherTestUtils.launchJob();
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
+
+    File testInput = testInputPath.toFile();
+    assertThat(testInput.list().length).isEqualTo(0);
   }
 
   @Configuration
