@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>spring-batch-itemreader</name>
-  <description>Spring Batch Tasklet Example</description>
+  <description>Spring Batch ItemReader Example</description>
   <url>https://www.codenotfound.com/spring-batch</url>
 
   <parent>
