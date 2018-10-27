@@ -12,7 +12,7 @@ public class PersonItemProcessor implements ItemProcessor<Person, String> {
   @Override
   public String process(Person person) throws Exception {
     String greeting = "Hello " + person.getFirstName() + " " + person.getLastName() + "!";
-    LOGGER.info("converting {} into {}", person, greeting);
+    LOGGER.info("converting '{}' into '{}'", person, greeting);
 
     return greeting;
   }

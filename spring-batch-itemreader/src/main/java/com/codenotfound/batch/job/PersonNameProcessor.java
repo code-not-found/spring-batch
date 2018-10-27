@@ -15,8 +15,7 @@ public class PersonNameProcessor implements ItemProcessor<Person, Person> {
     result.setFirstName(person.getFirstName().toUpperCase());
     result.setLastName(person.getLastName().toUpperCase());
 
-    LOGGER.info("converting {} into {}", person, result);
-
+    LOGGER.info("converting '{}' into '{}'", person, result);
     return result;
   }
 }
