@@ -9,7 +9,6 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -20,19 +19,13 @@ import com.codenotfound.model.Person;
 @EnableBatchProcessing
 public class CapitalizeNamesJobConfig {
 
-  @Autowired
-  public JobBuilderFactory jobBuilders;
-
-  @Autowired
-  public StepBuilderFactory stepBuilders;
-
   @Bean
-  public Job convertNamesJob() {
-    return jobBuilders.get("capitalizeNamesJob").start(convertNamesStep()).build();
+  public Job convertNamesJob(JobBuilderFactory jobBuilders, StepBuilderFactory stepBuilders) {
+    return jobBuilders.get("capitalizeNamesJob").start(convertNamesStep(stepBuilders)).build();
   }
 
   @Bean
-  public Step convertNamesStep() {
+  public Step convertNamesStep(StepBuilderFactory stepBuilders) {
     return stepBuilders.get("capitalizeNamesStep").<Person, Person>chunk(10).reader(itemReader())
         .processor(itemProcessor()).writer(itemWriter()).build();
   }
