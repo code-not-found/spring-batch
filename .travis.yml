@@ -12,6 +12,7 @@ addons:
       secure: $SONAR_TOKEN
 
 env:
+- PROJECT_DIR=spring-batch-capitalize-names
 - PROJECT_DIR=spring-batch-hello-world
 - PROJECT_DIR=spring-batch-itemreader
 - PROJECT_DIR=spring-batch-itemwriter
