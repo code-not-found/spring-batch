@@ -4,7 +4,9 @@ public class Person {
   private String firstName;
   private String lastName;
 
-  public Person() {}
+  public Person() {
+    // default constructor
+  }
 
   public String getFirstName() {
     return firstName;

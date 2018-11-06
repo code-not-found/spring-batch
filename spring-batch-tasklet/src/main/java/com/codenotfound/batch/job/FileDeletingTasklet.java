@@ -1,7 +1,9 @@
 package com.codenotfound.batch.job;
 
-import java.io.File;
 import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.UnexpectedJobExecutionException;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -12,21 +14,19 @@ import org.springframework.util.Assert;
 
 public class FileDeletingTasklet implements Tasklet {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(FileDeletingTasklet.class);
+
   private Resource directory;
 
   @Override
-  public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
-      throws IOException {
-
-    File dir = directory.getFile();
-    Assert.state(dir.isDirectory(), "Not a directory");
-
-    for (File file : dir.listFiles()) {
-      boolean deleted = file.delete();
-      if (!deleted) {
-        throw new UnexpectedJobExecutionException("Could not delete file: " + file.getPath());
-      }
+  public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
+    try {
+      FileUtils.cleanDirectory(directory.getFile());
+    } catch (IOException e) {
+      LOGGER.error("error deleting files", e);
+      throw new UnexpectedJobExecutionException("unable to delete files");
     }
+
     return RepeatStatus.FINISHED;
   }
 
