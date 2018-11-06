@@ -2,6 +2,6 @@
 
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=com.codenotfound%3Aspring-batch-capitalize-names&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.codenotfound%3Aspring-batch-capitalize-names)
 
-Spring Batch capitalize names example.
+A basic Spring Batch example that converts person names into upper case. The input is a CSV file that contains comma separated first and last names. The output is a text file that contains comma separated first and last names that are all in upper case.
 
 [https://www.codenotfound.com/spring-batch/](https://www.codenotfound.com/spring-batch/)
