@@ -87,7 +87,7 @@ public class CapitalizeNamesJobConfig {
   @Bean
   public FileDeletingTasklet fileDeletingTasklet() {
     FileDeletingTasklet tasklet = new FileDeletingTasklet();
-    tasklet.setDirectoryResource(new FileSystemResource("target/test-inputs"));
+    tasklet.setDirectory(new FileSystemResource("target/test-inputs"));
 
     return tasklet;
   }
