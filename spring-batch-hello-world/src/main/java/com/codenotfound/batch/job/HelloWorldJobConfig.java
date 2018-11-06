@@ -10,7 +10,6 @@ import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.transform.PassThroughLineAggregator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -21,19 +20,13 @@ import com.codenotfound.model.Person;
 @EnableBatchProcessing
 public class HelloWorldJobConfig {
 
-  @Autowired
-  public JobBuilderFactory jobBuilders;
-
-  @Autowired
-  public StepBuilderFactory stepBuilders;
-
   @Bean
-  public Job helloWorlJob() {
-    return jobBuilders.get("helloWorldJob").start(helloWorldStep()).build();
+  public Job helloWorlJob(JobBuilderFactory jobBuilders, StepBuilderFactory stepBuilders) {
+    return jobBuilders.get("helloWorldJob").start(helloWorldStep(stepBuilders)).build();
   }
 
   @Bean
-  public Step helloWorldStep() {
+  public Step helloWorldStep(StepBuilderFactory stepBuilders) {
     return stepBuilders.get("helloWorldStep").<Person, String>chunk(10).reader(reader())
         .processor(processor()).writer(writer()).build();
   }
