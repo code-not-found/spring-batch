@@ -22,13 +22,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.FileSystemUtils;
-import com.codenotfound.batch.job.ConvertNamesJobConfig;
+import com.codenotfound.batch.job.CapitalizeNamesJobConfig;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {SpringBatchApplicationTests.BatchTestConfig.class})
 public class SpringBatchApplicationTests {
 
-  private static Path csvFilesPath, testInputPath;
+  private static Path csvFilesPath, testInputsPath;
 
   @Autowired
   private JobLauncherTestUtils jobLauncherTestUtils;
@@ -36,14 +36,14 @@ public class SpringBatchApplicationTests {
   @BeforeClass
   public static void copyFiles() throws URISyntaxException, IOException {
     csvFilesPath = Paths.get(new ClassPathResource("csv").getURI());
-    testInputPath = Paths.get("target/test-input");
+    testInputsPath = Paths.get("target/test-inputs");
     try {
-      Files.createDirectory(testInputPath);
+      Files.createDirectory(testInputsPath);
     } catch (Exception e) {
       // if directory exists do nothing
     }
 
-    FileSystemUtils.copyRecursively(csvFilesPath, testInputPath);
+    FileSystemUtils.copyRecursively(csvFilesPath, testInputsPath);
   }
 
   @Test
@@ -51,21 +51,22 @@ public class SpringBatchApplicationTests {
     JobExecution jobExecution = jobLauncherTestUtils.launchJob();
     assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
 
-    File testInput = testInputPath.toFile();
+    // check that all files are deleted
+    File testInput = testInputsPath.toFile();
     assertThat(testInput.list().length).isEqualTo(0);
   }
 
   @Configuration
-  @Import(ConvertNamesJobConfig.class)
+  @Import(CapitalizeNamesJobConfig.class)
   static class BatchTestConfig {
 
     @Autowired
-    private Job convertNamesJob;
+    private Job capitalizeNamesJob;
 
     @Bean
     JobLauncherTestUtils jobLauncherTestUtils() throws NoSuchJobException {
       JobLauncherTestUtils jobLauncherTestUtils = new JobLauncherTestUtils();
-      jobLauncherTestUtils.setJob(convertNamesJob);
+      jobLauncherTestUtils.setJob(capitalizeNamesJob);
 
       return jobLauncherTestUtils;
     }

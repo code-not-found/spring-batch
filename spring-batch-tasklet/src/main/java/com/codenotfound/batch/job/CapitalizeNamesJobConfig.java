@@ -14,8 +14,6 @@ import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.builder.MultiResourceItemReaderBuilder;
-import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
-import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,9 +25,9 @@ import com.codenotfound.model.Person;
 
 @Configuration
 @EnableBatchProcessing
-public class ConvertNamesJobConfig {
+public class CapitalizeNamesJobConfig {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConvertNamesJobConfig.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CapitalizeNamesJobConfig.class);
 
   @Autowired
   public JobBuilderFactory jobBuilders;
@@ -39,14 +37,14 @@ public class ConvertNamesJobConfig {
 
   @Bean
   public Job convertNamesJob() {
-    return jobBuilders.get("convertNamesJob").start(convertNamesStep()).next(deleteFilesStep())
+    return jobBuilders.get("capitalizeNamesJob").start(convertNamesStep()).next(deleteFilesStep())
         .build();
   }
 
   @Bean
   public Step convertNamesStep() {
-    return stepBuilders.get("convertNamesStep").<Person, Person>chunk(10).reader(reader())
-        .processor(processor()).writer(writer()).build();
+    return stepBuilders.get("capitalizeNamesStep").<Person, Person>chunk(10)
+        .reader(multiItemReader()).processor(itemProcessor()).writer(itemWriter()).build();
   }
 
   @Bean
@@ -55,49 +53,41 @@ public class ConvertNamesJobConfig {
   }
 
   @Bean
-  public FlatFileItemReader<Person> flatFileItemReader() {
-    return new FlatFileItemReaderBuilder<Person>().name("flatFileItemReader").delimited()
-        .names(new String[] {"firstName", "lastName"}).targetType(Person.class).build();
-  }
-
-  @Bean
-  public MultiResourceItemReader<Person> reader() {
+  public MultiResourceItemReader<Person> multiItemReader() {
     ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
     Resource[] resources = null;
     try {
-      resources = patternResolver.getResources("file:target/test-input/*.csv");
+      resources = patternResolver.getResources("file:target/test-inputs/*.csv");
     } catch (IOException e) {
       LOGGER.error("error reading files", e);
     }
 
-    return new MultiResourceItemReaderBuilder<Person>().name("personItemReader")
-        .delegate(flatFileItemReader()).resources(resources).setStrict(true).build();
+    return new MultiResourceItemReaderBuilder<Person>().name("multiPersonItemReader")
+        .delegate(itemReader()).resources(resources).setStrict(true).build();
   }
 
   @Bean
-  public PersonItemProcessor processor() {
+  public FlatFileItemReader<Person> itemReader() {
+    return new FlatFileItemReaderBuilder<Person>().name("personItemReader").delimited()
+        .names(new String[] {"firstName", "lastName"}).targetType(Person.class).build();
+  }
+
+  @Bean
+  public PersonItemProcessor itemProcessor() {
     return new PersonItemProcessor();
   }
 
   @Bean
-  public FlatFileItemWriter<Person> writer() {
-    BeanWrapperFieldExtractor<Person> fieldExtractor = new BeanWrapperFieldExtractor<>();
-    fieldExtractor.setNames(new String[] {"firstName", "lastName"});
-    fieldExtractor.afterPropertiesSet();
-
-    DelimitedLineAggregator<Person> lineAggregator = new DelimitedLineAggregator<>();
-    lineAggregator.setDelimiter(", ");
-    lineAggregator.setFieldExtractor(fieldExtractor);
-
+  public FlatFileItemWriter<Person> itemWriter() {
     return new FlatFileItemWriterBuilder<Person>().name("personItemWriter")
-        .resource(new FileSystemResource("target/test-output/persons.txt"))
-        .lineAggregator(lineAggregator).build();
+        .resource(new FileSystemResource("target/test-outputs/persons.txt")).delimited()
+        .delimiter(", ").names(new String[] {"firstName", "lastName"}).build();
   }
 
   @Bean
   public FileDeletingTasklet fileDeletingTasklet() {
     FileDeletingTasklet tasklet = new FileDeletingTasklet();
-    tasklet.setDirectoryResource(new FileSystemResource("target/test-input"));
+    tasklet.setDirectoryResource(new FileSystemResource("target/test-inputs"));
 
     return tasklet;
   }
