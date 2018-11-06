@@ -30,13 +30,10 @@ public class CapitalizeNamesJobConfig {
   private static final Logger LOGGER = LoggerFactory.getLogger(CapitalizeNamesJobConfig.class);
 
   @Autowired
-  public JobBuilderFactory jobBuilders;
-
-  @Autowired
   public StepBuilderFactory stepBuilders;
 
   @Bean
-  public Job capitalizeNamesJob() {
+  public Job capitalizeNamesJob(JobBuilderFactory jobBuilders) {
     return jobBuilders.get("capitalizeNamesJob").start(capitalizeNamesStep())
         .next(deleteFilesStep()).build();
   }
@@ -86,9 +83,6 @@ public class CapitalizeNamesJobConfig {
 
   @Bean
   public FileDeletingTasklet fileDeletingTasklet() {
-    FileDeletingTasklet tasklet = new FileDeletingTasklet();
-    tasklet.setDirectory(new FileSystemResource("target/test-inputs"));
-
-    return tasklet;
+    return new FileDeletingTasklet(new FileSystemResource("target/test-inputs"));
   }
 }
