@@ -1,7 +1,10 @@
 package com.codenotfound.batch.job;
 
+import java.io.File;
 import java.io.IOException;
-import org.apache.commons.io.FileUtils;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -21,7 +24,8 @@ public class FileDeletingTasklet implements Tasklet {
   @Override
   public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
     try {
-      FileUtils.cleanDirectory(directory.getFile());
+      Files.walk(Paths.get(directory.getFile().getPath())).filter(Files::isRegularFile)
+          .map(Path::toFile).forEach(File::delete);
     } catch (IOException e) {
       LOGGER.error("error deleting files", e);
       throw new UnexpectedJobExecutionException("unable to delete files");
