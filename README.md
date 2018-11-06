@@ -1,4 +1,4 @@
-# spring-batch
+# Spring Batch Tutorials
 
 [![Build Status](https://travis-ci.org/code-not-found/spring-batch.svg?branch=master)](https://travis-ci.org/code-not-found/spring-batch)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
