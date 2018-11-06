@@ -36,13 +36,13 @@ public class CapitalizeNamesJobConfig {
   public StepBuilderFactory stepBuilders;
 
   @Bean
-  public Job convertNamesJob() {
-    return jobBuilders.get("capitalizeNamesJob").start(convertNamesStep()).next(deleteFilesStep())
-        .build();
+  public Job capitalizeNamesJob() {
+    return jobBuilders.get("capitalizeNamesJob").start(capitalizeNamesStep())
+        .next(deleteFilesStep()).build();
   }
 
   @Bean
-  public Step convertNamesStep() {
+  public Step capitalizeNamesStep() {
     return stepBuilders.get("capitalizeNamesStep").<Person, Person>chunk(10)
         .reader(multiItemReader()).processor(itemProcessor()).writer(itemWriter()).build();
   }
