@@ -17,6 +17,7 @@ env:
 - PROJECT_DIR=spring-batch-itemreader
 - PROJECT_DIR=spring-batch-itemwriter
 - PROJECT_DIR=spring-batch-tasklet
+- PROJECT_DIR=spring-batch-admin/spring-batch-task
 
 script:
 - cd $PROJECT_DIR
