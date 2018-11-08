@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost:19092/mem:dataflow
+    driverClassName: org.h2.Driver
