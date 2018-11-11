@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.codenotfound.batch.job.BatchConfig;
 import com.codenotfound.batch.job.CapitalizeNamesJobConfig;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +31,7 @@ public class SpringBatchApplicationTests {
   }
 
   @Configuration
-  @Import(CapitalizeNamesJobConfig.class)
+  @Import({BatchConfig.class, CapitalizeNamesJobConfig.class})
   static class BatchTestConfig {
 
     @Autowired
