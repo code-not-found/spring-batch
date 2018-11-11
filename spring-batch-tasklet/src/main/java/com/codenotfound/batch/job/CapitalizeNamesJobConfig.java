@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -23,7 +22,6 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import com.codenotfound.model.Person;
 
 @Configuration
-@EnableBatchProcessing
 public class CapitalizeNamesJobConfig {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CapitalizeNamesJobConfig.class);
