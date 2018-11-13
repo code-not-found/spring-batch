@@ -12,12 +12,13 @@ addons:
       secure: $SONAR_TOKEN
 
 env:
+- PROJECT_DIR=spring-batch-admin/spring-batch-task
 - PROJECT_DIR=spring-batch-capitalize-names
 - PROJECT_DIR=spring-batch-hello-world
 - PROJECT_DIR=spring-batch-itemreader
 - PROJECT_DIR=spring-batch-itemwriter
+- PROJECT_DIR=spring-batch-scheduler
 - PROJECT_DIR=spring-batch-tasklet
-- PROJECT_DIR=spring-batch-admin/spring-batch-task
 
 script:
 - cd $PROJECT_DIR
