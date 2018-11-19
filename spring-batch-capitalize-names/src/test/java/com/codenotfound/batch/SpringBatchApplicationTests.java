@@ -18,7 +18,8 @@ import com.codenotfound.batch.job.BatchConfig;
 import com.codenotfound.batch.job.CapitalizeNamesJobConfig;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {SpringBatchApplicationTests.BatchTestConfig.class})
+@SpringBootTest(
+    classes = {SpringBatchApplicationTests.BatchTestConfig.class})
 public class SpringBatchApplicationTests {
 
   @Autowired
@@ -27,7 +28,8 @@ public class SpringBatchApplicationTests {
   @Test
   public void testConvertNamesJob() throws Exception {
     JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-    assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
+    assertThat(jobExecution.getExitStatus().getExitCode())
+        .isEqualTo("COMPLETED");
   }
 
   @Configuration
@@ -38,8 +40,10 @@ public class SpringBatchApplicationTests {
     private Job capitalizeNamesJob;
 
     @Bean
-    JobLauncherTestUtils jobLauncherTestUtils() throws NoSuchJobException {
-      JobLauncherTestUtils jobLauncherTestUtils = new JobLauncherTestUtils();
+    JobLauncherTestUtils jobLauncherTestUtils()
+        throws NoSuchJobException {
+      JobLauncherTestUtils jobLauncherTestUtils =
+          new JobLauncherTestUtils();
       jobLauncherTestUtils.setJob(capitalizeNamesJob);
 
       return jobLauncherTestUtils;
