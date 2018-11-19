@@ -26,7 +26,8 @@ import com.codenotfound.batch.job.BatchConfig;
 import com.codenotfound.batch.job.CapitalizeNamesJobConfig;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {SpringBatchApplicationTests.BatchTestConfig.class})
+@SpringBootTest(
+    classes = {SpringBatchApplicationTests.BatchTestConfig.class})
 public class SpringBatchApplicationTests {
 
   private static Path csvFilesPath, testInputsPath;
@@ -35,7 +36,8 @@ public class SpringBatchApplicationTests {
   private JobLauncherTestUtils jobLauncherTestUtils;
 
   @BeforeClass
-  public static void copyFiles() throws URISyntaxException, IOException {
+  public static void copyFiles()
+      throws URISyntaxException, IOException {
     csvFilesPath = Paths.get(new ClassPathResource("csv").getURI());
     testInputsPath = Paths.get("target/test-inputs");
     try {
@@ -50,7 +52,8 @@ public class SpringBatchApplicationTests {
   @Test
   public void testHelloWorldJob() throws Exception {
     JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-    assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
+    assertThat(jobExecution.getExitStatus().getExitCode())
+        .isEqualTo("COMPLETED");
 
     // check that all files are deleted
     File testInput = testInputsPath.toFile();
@@ -65,8 +68,10 @@ public class SpringBatchApplicationTests {
     private Job capitalizeNamesJob;
 
     @Bean
-    JobLauncherTestUtils jobLauncherTestUtils() throws NoSuchJobException {
-      JobLauncherTestUtils jobLauncherTestUtils = new JobLauncherTestUtils();
+    JobLauncherTestUtils jobLauncherTestUtils()
+        throws NoSuchJobException {
+      JobLauncherTestUtils jobLauncherTestUtils =
+          new JobLauncherTestUtils();
       jobLauncherTestUtils.setJob(capitalizeNamesJob);
 
       return jobLauncherTestUtils;

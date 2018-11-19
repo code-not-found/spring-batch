@@ -23,22 +23,27 @@ import com.codenotfound.model.Person;
 public class CapitalizeNamesJobConfig {
 
   @Bean
-  public Job convertNamesJob(JobBuilderFactory jobBuilders, StepBuilderFactory stepBuilders) {
-    return jobBuilders.get("capitalizeNamesJob").start(convertNamesStep(stepBuilders)).build();
+  public Job convertNamesJob(JobBuilderFactory jobBuilders,
+      StepBuilderFactory stepBuilders) {
+    return jobBuilders.get("capitalizeNamesJob")
+        .start(convertNamesStep(stepBuilders)).build();
   }
 
   @Bean
   public Step convertNamesStep(StepBuilderFactory stepBuilders) {
-    return stepBuilders.get("capitalizeNamesStep").<Person, Person>chunk(10).reader(itemReader())
+    return stepBuilders.get("capitalizeNamesStep")
+        .<Person, Person>chunk(10).reader(itemReader())
         .processor(itemProcessor()).writer(itemWriter()).build();
   }
 
   @Bean
   public FlatFileItemReader<Person> itemReader() {
-    BeanWrapperFieldSetMapper<Person> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+    BeanWrapperFieldSetMapper<Person> fieldSetMapper =
+        new BeanWrapperFieldSetMapper<>();
     fieldSetMapper.setTargetType(Person.class);
 
-    DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+    DelimitedLineTokenizer lineTokenizer =
+        new DelimitedLineTokenizer();
     lineTokenizer.setDelimiter(",");
     lineTokenizer.setNames(new String[] {"firstName", "lastName"});
 
@@ -46,9 +51,11 @@ public class CapitalizeNamesJobConfig {
     lineMapper.setFieldSetMapper(fieldSetMapper);
     lineMapper.setLineTokenizer(lineTokenizer);
 
-    FlatFileItemReader<Person> flatFileItemReader = new FlatFileItemReader<>();
+    FlatFileItemReader<Person> flatFileItemReader =
+        new FlatFileItemReader<>();
     flatFileItemReader.setName("personItemReader");
-    flatFileItemReader.setResource(new ClassPathResource("csv/persons.csv"));
+    flatFileItemReader
+        .setResource(new ClassPathResource("csv/persons.csv"));
     flatFileItemReader.setLineMapper(lineMapper);
 
     return flatFileItemReader;
@@ -61,17 +68,21 @@ public class CapitalizeNamesJobConfig {
 
   @Bean
   public FlatFileItemWriter<Person> itemWriter() {
-    BeanWrapperFieldExtractor<Person> fieldExtractor = new BeanWrapperFieldExtractor<>();
+    BeanWrapperFieldExtractor<Person> fieldExtractor =
+        new BeanWrapperFieldExtractor<>();
     fieldExtractor.setNames(new String[] {"firstName", "lastName"});
     fieldExtractor.afterPropertiesSet();
 
-    DelimitedLineAggregator<Person> lineAggregator = new DelimitedLineAggregator<>();
+    DelimitedLineAggregator<Person> lineAggregator =
+        new DelimitedLineAggregator<>();
     lineAggregator.setDelimiter(",");
     lineAggregator.setFieldExtractor(fieldExtractor);
 
-    FlatFileItemWriter<Person> flatFileItemWriter = new FlatFileItemWriter<>();
+    FlatFileItemWriter<Person> flatFileItemWriter =
+        new FlatFileItemWriter<>();
     flatFileItemWriter.setName("personItemWriter");
-    flatFileItemWriter.setResource(new FileSystemResource("target/test-outputs/persons.txt"));
+    flatFileItemWriter.setResource(
+        new FileSystemResource("target/test-outputs/persons.txt"));
     flatFileItemWriter.setLineAggregator(lineAggregator);
 
     return flatFileItemWriter;

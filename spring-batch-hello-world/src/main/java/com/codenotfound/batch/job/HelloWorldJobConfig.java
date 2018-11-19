@@ -19,21 +19,26 @@ import com.codenotfound.model.Person;
 public class HelloWorldJobConfig {
 
   @Bean
-  public Job helloWorlJob(JobBuilderFactory jobBuilders, StepBuilderFactory stepBuilders) {
-    return jobBuilders.get("helloWorldJob").start(helloWorldStep(stepBuilders)).build();
+  public Job helloWorlJob(JobBuilderFactory jobBuilders,
+      StepBuilderFactory stepBuilders) {
+    return jobBuilders.get("helloWorldJob")
+        .start(helloWorldStep(stepBuilders)).build();
   }
 
   @Bean
   public Step helloWorldStep(StepBuilderFactory stepBuilders) {
-    return stepBuilders.get("helloWorldStep").<Person, String>chunk(10).reader(reader())
+    return stepBuilders.get("helloWorldStep")
+        .<Person, String>chunk(10).reader(reader())
         .processor(processor()).writer(writer()).build();
   }
 
   @Bean
   public FlatFileItemReader<Person> reader() {
-    return new FlatFileItemReaderBuilder<Person>().name("personItemReader")
-        .resource(new ClassPathResource("csv/persons.csv")).delimited()
-        .names(new String[] {"firstName", "lastName"}).targetType(Person.class).build();
+    return new FlatFileItemReaderBuilder<Person>()
+        .name("personItemReader")
+        .resource(new ClassPathResource("csv/persons.csv"))
+        .delimited().names(new String[] {"firstName", "lastName"})
+        .targetType(Person.class).build();
   }
 
   @Bean
@@ -43,8 +48,10 @@ public class HelloWorldJobConfig {
 
   @Bean
   public FlatFileItemWriter<String> writer() {
-    return new FlatFileItemWriterBuilder<String>().name("greetingItemWriter")
-        .resource(new FileSystemResource("target/test-outputs/greetings.txt"))
+    return new FlatFileItemWriterBuilder<String>()
+        .name("greetingItemWriter")
+        .resource(new FileSystemResource(
+            "target/test-outputs/greetings.txt"))
         .lineAggregator(new PassThroughLineAggregator<>()).build();
   }
 }

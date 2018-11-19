@@ -17,7 +17,8 @@ import org.springframework.core.io.Resource;
 
 public class FileDeletingTasklet implements Tasklet {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(FileDeletingTasklet.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(FileDeletingTasklet.class);
 
   private Resource directory;
 
@@ -26,12 +27,16 @@ public class FileDeletingTasklet implements Tasklet {
   }
 
   @Override
-  public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
-    try (Stream<Path> walk = Files.walk(Paths.get(directory.getFile().getPath()))) {
-      walk.filter(Files::isRegularFile).map(Path::toFile).forEach(File::delete);
+  public RepeatStatus execute(StepContribution stepContribution,
+      ChunkContext chunkContext) {
+    try (Stream<Path> walk =
+        Files.walk(Paths.get(directory.getFile().getPath()))) {
+      walk.filter(Files::isRegularFile).map(Path::toFile)
+          .forEach(File::delete);
     } catch (IOException e) {
       LOGGER.error("error deleting files", e);
-      throw new UnexpectedJobExecutionException("unable to delete files");
+      throw new UnexpectedJobExecutionException(
+          "unable to delete files");
     }
 
     return RepeatStatus.FINISHED;
