@@ -4,4 +4,4 @@
 
 A basic Spring Batch example that converts person names into upper case. The input is a CSV file that contains comma separated first and last names. The output is a text file that contains comma separated first and last names that are all in upper case.
 
-[https://www.codenotfound.com/spring-batch/](https://www.codenotfound.com/spring-batch/)
+[https://codenotfound.com/spring-batch-tutorials](https://codenotfound.com/spring-batch-tutorials)

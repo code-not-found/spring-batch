@@ -2,4 +2,4 @@
 
 Spring Cloud Data Server on Spring Boot.
 
-[https://www.codenotfound.com/spring-batch-admin-example.html](https://www.codenotfound.com/spring-batch-admin-example.html)
+[https://codenotfound.com/spring-batch-admin-example.html](https://codenotfound.com/spring-batch-admin-example.html)

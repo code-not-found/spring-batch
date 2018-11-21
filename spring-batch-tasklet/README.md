@@ -4,4 +4,4 @@
 
 A detailed step-by-step tutorial on how to implement a Spring Batch Tasklet using Spring Boot and Maven.
 
-[https://www.codenotfound.com/spring-batch-tasklet-example.html](https://www.codenotfound.com/spring-batch-tasklet-example.html)
+[https://codenotfound.com/spring-batch-tasklet-example.html](https://codenotfound.com/spring-batch-tasklet-example.html)

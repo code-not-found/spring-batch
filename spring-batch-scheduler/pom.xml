@@ -10,7 +10,7 @@
 
   <name>spring-batch-scheduler</name>
   <description>Spring Batch Scheduler Example</description>
-  <url>https://www.codenotfound.com/spring-batch-scheduler-example.html</url>
+  <url>https://codenotfound.com/spring-batch-scheduler-example.html</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

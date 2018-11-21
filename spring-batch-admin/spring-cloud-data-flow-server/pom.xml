@@ -10,7 +10,7 @@
 
   <name>spring-cloud-data-flow-server</name>
   <description>Spring Cloud Data Server on Spring Boot</description>
-  <url>https://www.codenotfound.com/spring-batch-admin-example.html</url>
+  <url>https://codenotfound.com/spring-batch-admin-example.html</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

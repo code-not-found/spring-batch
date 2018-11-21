@@ -4,4 +4,4 @@
 
 A detailed step-by-step tutorial on how to use a scheduler to run Spring Batch jobs using Spring Boot and Maven.
 
-[https://www.codenotfound.com/spring-batch-scheduler-example.html](https://www.codenotfound.com/spring-batch-scheduler-example.html)
+[https://codenotfound.com/spring-batch-scheduler-example.html](https://codenotfound.com/spring-batch-scheduler-example.html)

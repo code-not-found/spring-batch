@@ -10,7 +10,7 @@
 
   <name>spring-batch-task</name>
   <description>Spring Batch Task Example</description>
-  <url>https://www.codenotfound.com/spring-batch-admin-example.html</url>
+  <url>https://codenotfound.com/spring-batch-admin-example.html</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

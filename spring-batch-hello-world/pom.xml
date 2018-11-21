@@ -10,7 +10,7 @@
 
   <name>spring-batch-hello-world</name>
   <description>Spring Batch Hello World Example</description>
-  <url>https://www.codenotfound.com/spring-batch-example.html</url>
+  <url>https://codenotfound.com/spring-batch-example.html</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

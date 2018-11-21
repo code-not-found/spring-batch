@@ -4,4 +4,4 @@
 
 Spring Batch Task example using Spring Boot and Maven.
 
-[https://www.codenotfound.com/spring-batch-admin-example.html](https://www.codenotfound.com/spring-batch-admin-example.html)
+[https://codenotfound.com/spring-batch-admin-example.html](https://codenotfound.com/spring-batch-admin-example.html)
