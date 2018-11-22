@@ -4,4 +4,4 @@
 
 A detailed step-by-step tutorial on how to implement a Hello World Spring Batch job using Spring Boot and Maven.
 
-[https://codenotfound.com/spring-batch-hello-world-example.html](https://codenotfound.com/spring-batch-hello-world-example.html)
+[https://codenotfound.com/spring-batch-example.html](https://codenotfound.com/spring-batch-example.html)
