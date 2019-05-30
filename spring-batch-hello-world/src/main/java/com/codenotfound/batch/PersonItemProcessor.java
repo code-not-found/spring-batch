@@ -1,4 +1,4 @@
-package com.codenotfound.batch.job;
+package com.codenotfound.batch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

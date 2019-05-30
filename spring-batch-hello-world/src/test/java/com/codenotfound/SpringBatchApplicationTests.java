@@ -1,4 +1,4 @@
-package com.codenotfound.batch;
+package com.codenotfound;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.codenotfound.batch.job.BatchConfig;
-import com.codenotfound.batch.job.HelloWorldJobConfig;
+import com.codenotfound.batch.BatchConfig;
+import com.codenotfound.batch.HelloWorldJobConfig;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(

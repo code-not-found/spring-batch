@@ -1,4 +1,4 @@
-package com.codenotfound.batch.job;
+package com.codenotfound.batch;
 
 import javax.sql.DataSource;
 import org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer;
