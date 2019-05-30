@@ -1,4 +1,4 @@
-package com.codenotfound.batch;
+package com.codenotfound;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
@@ -22,8 +22,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.FileSystemUtils;
-import com.codenotfound.batch.job.BatchConfig;
-import com.codenotfound.batch.job.CapitalizeNamesJobConfig;
+import com.codenotfound.batch.BatchConfig;
+import com.codenotfound.batch.CapitalizeNamesJobConfig;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(

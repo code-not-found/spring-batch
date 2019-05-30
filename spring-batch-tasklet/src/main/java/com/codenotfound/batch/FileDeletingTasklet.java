@@ -1,4 +1,4 @@
-package com.codenotfound.batch.job;
+package com.codenotfound.batch;
 
 import java.io.File;
 import java.io.IOException;
