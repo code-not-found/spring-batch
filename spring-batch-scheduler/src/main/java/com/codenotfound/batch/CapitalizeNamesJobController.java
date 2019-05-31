@@ -1,4 +1,4 @@
-package com.codenotfound.batch.job;
+package com.codenotfound.batch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,8 @@ public class CapitalizeNamesJobController {
 
   @GetMapping
   public String toggleBatchJob() {
-    boolean toggleEnabled = !capitalizeNamesJobScheduler.isEnabled();
+    boolean toggleEnabled =
+        !capitalizeNamesJobScheduler.isEnabled();
     capitalizeNamesJobScheduler.setEnabled(toggleEnabled);
 
     String result = "isEnabled=" + toggleEnabled;

@@ -1,4 +1,4 @@
-package com.codenotfound.batch.job;
+package com.codenotfound.batch;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

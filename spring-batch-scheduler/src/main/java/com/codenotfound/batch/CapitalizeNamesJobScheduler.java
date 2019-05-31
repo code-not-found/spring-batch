@@ -1,4 +1,4 @@
-package com.codenotfound.batch.job;
+package com.codenotfound.batch;
 
 import java.util.Date;
 import org.slf4j.Logger;
