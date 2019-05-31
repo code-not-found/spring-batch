@@ -1,5 +1,4 @@
-
-package com.codenotfound.batch;
+package com.codenotfound;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
@@ -14,10 +13,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.codenotfound.batch.job.CapitalizeNamesJobConfig;
+import com.codenotfound.batch.CapitalizeNamesJobConfig;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {SpringBatchApplicationTests.BatchTestConfig.class})
+@SpringBootTest(
+    classes = {SpringBatchApplicationTests.BatchTestConfig.class})
 public class SpringBatchApplicationTests {
 
   @Autowired
@@ -26,7 +26,8 @@ public class SpringBatchApplicationTests {
   @Test
   public void testConvertNamesJob() throws Exception {
     JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-    assertThat(jobExecution.getExitStatus().getExitCode()).isEqualTo("COMPLETED");
+    assertThat(jobExecution.getExitStatus().getExitCode())
+        .isEqualTo("COMPLETED");
   }
 
   @Configuration
@@ -37,8 +38,10 @@ public class SpringBatchApplicationTests {
     private Job capitalizeNamesJob;
 
     @Bean
-    JobLauncherTestUtils jobLauncherTestUtils() throws NoSuchJobException {
-      JobLauncherTestUtils jobLauncherTestUtils = new JobLauncherTestUtils();
+    JobLauncherTestUtils jobLauncherTestUtils()
+        throws NoSuchJobException {
+      JobLauncherTestUtils jobLauncherTestUtils =
+          new JobLauncherTestUtils();
       jobLauncherTestUtils.setJob(capitalizeNamesJob);
 
       return jobLauncherTestUtils;
