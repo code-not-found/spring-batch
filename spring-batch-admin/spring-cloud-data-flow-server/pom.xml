@@ -23,7 +23,7 @@
   <properties>
     <java.version>11</java.version>
     <spring-cloud-starter-dataflow-server.version>2.1.0.RELEASE</spring-cloud-starter-dataflow-server.version>
-    <h2.version>1.4.193</h2.version>
+    <h2.version>2.0.206</h2.version>
   </properties>
 
   <dependencies>
